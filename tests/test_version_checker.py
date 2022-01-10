@@ -34,6 +34,51 @@ def test_cmd_no_version_provided_as_parameter(tmp_file_path: Path):
     assert response == 1
 
 
+def test_cmd_no_files_provided():
+    with pytest.raises(ValueError):
+        main(["--version", "2.0.0"])
+
+
+def test_cmd_2_files_provided_one_does_not_contain_the_version(
+    tmp_file_path: Path,
+):
+    write_something_to_file(tmp_file_path, "I have the version: 2.0.0")
+    another_file = tmp_file_path.parent / "another_file.txt"
+    write_something_to_file(another_file, "I do not have the version")
+
+    response = main(
+        [
+            "--version",
+            "2.0.0",
+            "--files",
+            str(tmp_file_path),
+            str(another_file),
+        ]
+    )
+
+    assert response == 1
+
+
+def test_cmd_2_files_provided_both_contain_the_version(
+    tmp_file_path: Path,
+):
+    write_something_to_file(tmp_file_path, "I have the version: 2.0.0")
+    another_file = tmp_file_path.parent / "another_file.txt"
+    write_something_to_file(another_file, "I have it too: 2.0.0")
+
+    response = main(
+        [
+            "--version",
+            "2.0.0",
+            "--files",
+            str(tmp_file_path),
+            str(another_file),
+        ]
+    )
+
+    assert response == 0
+
+
 def test_get_version_from_toml(tmp_file_path: Path):
     write_something_to_file(
         tmp_file_path, 'name = "version-checker"\nversion = "0.1.0"'

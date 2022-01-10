@@ -32,6 +32,12 @@ def main(argv: typing.Optional[typing.List[str]] = None):
     if args.version is None:
         args.version = get_version_from_toml("pyproject.toml")
 
+    if args.files is None:
+        raise ValueError(
+            "You must provide some files path to check if they contain the "
+            "desired version."
+        )
+
     return (
         0
         if all(version_in_file(args.version, file) for file in args.files)
