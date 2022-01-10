@@ -1,0 +1,7 @@
+- id: version-checker
+  name: version-checker
+  description: prevents files with different versions for the same package from being committed.
+  entry: version-checker
+  language: python
+  pass_filenames: false
+  always_run: true
