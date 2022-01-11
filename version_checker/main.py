@@ -2,12 +2,32 @@ import argparse
 import typing
 from pathlib import Path
 
+from loguru import logger
+
+
+def check_files(
+    files_path: typing.List[typing.Union[str, Path]], version: str
+) -> bool:
+    files_status = []
+    for index, file in enumerate(files_path):
+        logger.info(f"checking {index + 1}/{len(files_path)}: {file}...")
+        status = version_in_file(version, file)
+        files_status.append(status)
+        if status:
+            logger.success(f"{file} contains version: {version} ✅")
+        else:
+            logger.error(f"{file} doesn't contain version: {version} ❌")
+
+    return all(files_status)
+
 
 def get_version_from_toml(toml_file_path: typing.Union[Path]) -> str:
+    logger.info(f"grabbing version from {toml_file_path}...")
     with open(toml_file_path, "r") as toml_file:
         for line in toml_file.readlines():
             if line.startswith("version = "):
                 version = line.split("=")[1].strip().replace('"', "")
+                logger.info(f"version found: {version}")
                 return version
         raise ValueError(
             "Couldn't find package version within the .toml file.\n"
@@ -38,8 +58,4 @@ def main(argv: typing.Optional[typing.List[str]] = None):
             "desired version."
         )
 
-    return (
-        0
-        if all(version_in_file(args.version, file) for file in args.files)
-        else 1
-    )
+    return 0 if check_files(args.files, args.version) else 1
