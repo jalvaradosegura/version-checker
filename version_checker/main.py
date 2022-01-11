@@ -1,5 +1,6 @@
 import argparse
 import typing
+from importlib.metadata import version
 from pathlib import Path
 
 from loguru import logger
@@ -41,16 +42,21 @@ def version_in_file(version: str, file_path: typing.Union[str, Path]) -> bool:
     return version in content
 
 
-def main(argv: typing.Optional[typing.List[str]] = None):
+def main(argv: typing.Optional[typing.List[str]] = None) -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--version", help="version that files must have")
+    parser.add_argument(
+        "--package-name",
+        help="name of the package from which the version will be extracted",
+    )
     parser.add_argument(
         "--files", nargs="*", help="files in which the version will be checked"
     )
     args = parser.parse_args(argv)
 
-    if args.version is None:
+    if args.package_name is None:
         args.version = get_version_from_toml("pyproject.toml")
+    else:
+        args.version = version(args.package_name)
 
     if args.files is None:
         raise ValueError(

@@ -1,3 +1,4 @@
+from importlib.metadata import version
 from pathlib import Path
 
 import pytest
@@ -13,26 +14,44 @@ from .utils import write_something_to_file
 
 
 def test_version_in_file(tmp_file_path: Path):
-    write_something_to_file(tmp_file_path, "version is in the file, 2.0.0")
-    assert version_in_file("2.0.0", tmp_file_path)
+    write_something_to_file(
+        tmp_file_path, f"version is in the file, {version('version-checker')}"
+    )
+    assert version_in_file(version("version-checker"), tmp_file_path)
 
 
 def test_version_not_in_file(tmp_file_path: Path):
     write_something_to_file(tmp_file_path, "version not in the file")
-    assert not version_in_file("2.0.0", tmp_file_path)
+    assert not version_in_file(version("version-checker"), tmp_file_path)
 
 
 def test_cmd_version_not_in_file(tmp_file_path: Path, caplog):
     write_something_to_file(tmp_file_path, "version not in the file")
-    response = main(["--version", "2.0.0", "--files", str(tmp_file_path)])
+    response = main(
+        [
+            "--package-name",
+            "version-checker",
+            "--files",
+            str(tmp_file_path),
+        ]
+    )
 
     assert response == 1
     assert "❌" in caplog.text
 
 
 def test_cmd_version_in_file(tmp_file_path: Path, caplog):
-    write_something_to_file(tmp_file_path, "version is in the file, 2.0.0")
-    response = main(["--version", "2.0.0", "--files", str(tmp_file_path)])
+    write_something_to_file(
+        tmp_file_path, f"version is in the file, {version('version-checker')}"
+    )
+    response = main(
+        [
+            "--package-name",
+            "version-checker",
+            "--files",
+            str(tmp_file_path),
+        ]
+    )
 
     assert response == 0
     assert "✅" in caplog.text
@@ -46,20 +65,22 @@ def test_cmd_no_version_provided_as_parameter(tmp_file_path: Path):
 
 def test_cmd_no_files_provided():
     with pytest.raises(ValueError):
-        main(["--version", "2.0.0"])
+        main(["--package-name", "version-checker"])
 
 
 def test_cmd_2_files_provided_one_does_not_contain_the_version(
     tmp_file_path: Path,
 ):
-    write_something_to_file(tmp_file_path, "I have the version: 2.0.0")
+    write_something_to_file(
+        tmp_file_path, f"I have the version: {version('version-checker')}"
+    )
     another_file = tmp_file_path.parent / "another_file.txt"
     write_something_to_file(another_file, "I do not have the version")
 
     response = main(
         [
-            "--version",
-            "2.0.0",
+            "--package-name",
+            "version-checker",
             "--files",
             str(tmp_file_path),
             str(another_file),
@@ -72,14 +93,18 @@ def test_cmd_2_files_provided_one_does_not_contain_the_version(
 def test_cmd_2_files_provided_both_contain_the_version(
     tmp_file_path: Path,
 ):
-    write_something_to_file(tmp_file_path, "I have the version: 2.0.0")
+    write_something_to_file(
+        tmp_file_path, f"I have the version: {version('version-checker')}"
+    )
     another_file = tmp_file_path.parent / "another_file.txt"
-    write_something_to_file(another_file, "I have it too: 2.0.0")
+    write_something_to_file(
+        another_file, f"I have it too: {version('version-checker')}"
+    )
 
     response = main(
         [
-            "--version",
-            "2.0.0",
+            "--package-name",
+            "version-checker",
             "--files",
             str(tmp_file_path),
             str(another_file),
@@ -107,9 +132,11 @@ def test_get_version_from_toml_with_no_version_defined(tmp_file_path: Path):
 
 
 def test_check_files(tmp_file_path: Path, caplog):
-    write_something_to_file(tmp_file_path, "I have the version 2.0.0")
+    write_something_to_file(
+        tmp_file_path, f"I have the version {version('version-checker')}"
+    )
 
-    result = check_files([tmp_file_path], "2.0.0")
+    result = check_files([tmp_file_path], version("version-checker"))
 
     assert result
     assert f"checking 1/1: {tmp_file_path}" in caplog.text

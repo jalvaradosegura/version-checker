@@ -24,7 +24,7 @@
 # .pre-commit-config.yaml
 repos:
 -   repo: https://github.com/jalvaradosegura/version-checker
-    rev: v0.1.0-alpha
+    rev: v0.2.0-alpha
     hooks:
     -   id: version-checker
         args: [--files, CHANGELOG.md, Jenkinsfile, testing_hooks/__init__.py]
@@ -37,5 +37,5 @@ Following the previous example, let's say that I updated the version of a packag
 <img src="https://i.imgur.com/q2ZuYV6.png" alt="Example">
 
 If we then update the `CHANGELOG.md` file accordingly, the hook will pass.
-  
+
 > Remember that you can always set the `stages` parameter in your `.pre-commit-config.yaml`, to make it run, for example, only before doing a push.
