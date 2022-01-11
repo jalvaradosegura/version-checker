@@ -69,7 +69,9 @@ def test_cmd_2_files_provided_one_does_not_contain_the_version(
     assert response == 1
 
 
-def test_cmd_2_files_provided_both_contain_the_version(tmp_file_path: Path,):
+def test_cmd_2_files_provided_both_contain_the_version(
+    tmp_file_path: Path,
+):
     write_something_to_file(tmp_file_path, "I have the version: 2.0.0")
     another_file = tmp_file_path.parent / "another_file.txt"
     write_something_to_file(another_file, "I have it too: 2.0.0")

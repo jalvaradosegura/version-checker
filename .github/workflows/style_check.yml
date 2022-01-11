@@ -1,0 +1,20 @@
+name: style-check
+on: [push, pull_request]
+jobs:
+
+  style-check:
+    name: Code Style Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Poetry
+        run: |
+          pip install poetry
+      - name: Install dependencies
+        run: poetry install
+      - name: flake8 check
+        run: poetry run python -m flake8 .
+      - name: isort check
+        run: poetry run python -m isort . --check-only
+      - name: black check
+        run: poetry run python -m black . -l 79 --check
