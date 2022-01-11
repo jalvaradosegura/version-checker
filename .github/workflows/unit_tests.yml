@@ -1,0 +1,15 @@
+name: unit-tests
+on: [push, pull_request]
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Poetry
+        run: pip install poetry
+      - name: Install dependencies
+        run: poetry install
+      - name: Run tests
+        run: poetry run python -m pytest --cov=version_checker tests --cov-report=term-missing --cov-report xml
+      - name: Upload coverage
+        uses: codecov/codecov-action@v1
