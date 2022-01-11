@@ -19,3 +19,6 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 version-checker = "version_checker.main:main"
+
+[tool.isort]
+profile = "black"
