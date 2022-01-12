@@ -24,7 +24,7 @@
 # .pre-commit-config.yaml
 repos:
 -   repo: https://github.com/jalvaradosegura/version-checker
-    rev: v0.2.0-alpha
+    rev: v0.3.0-alpha
     hooks:
     -   id: version-checker
         args: [--files, CHANGELOG.md, Jenkinsfile, testing_hooks/__init__.py]
