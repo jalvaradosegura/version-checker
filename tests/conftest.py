@@ -1,9 +1,9 @@
 import logging
 from pathlib import Path
 
-import pytest
-from _pytest.logging import caplog as _caplog  # noqa F401
-from loguru import logger
+import pytest  # type: ignore
+from _pytest.logging import caplog as _caplog  # type: ignore # noqa F401
+from loguru import logger  # type: ignore
 
 
 @pytest.fixture

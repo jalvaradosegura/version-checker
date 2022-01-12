@@ -1,7 +1,7 @@
 from importlib.metadata import version
 from pathlib import Path
 
-import pytest
+import pytest  # type: ignore
 
 from version_checker.main import (
     check_files,

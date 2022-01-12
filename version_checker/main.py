@@ -2,7 +2,7 @@ import argparse
 import typing
 from pathlib import Path
 
-from loguru import logger
+from loguru import logger  # type: ignore
 
 from .settings import DEFAULT_FILE_TO_GRAB_VERSION
 
