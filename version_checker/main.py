@@ -56,10 +56,10 @@ def main(argv: typing.Optional[typing.List[str]] = None) -> int:
     )
     args = parser.parse_args(argv)
 
-    if args.files is None:
+    if not args.files:
         raise ValueError(
             "You must provide some files path to check if they contain the "
-            "desired version."
+            "desired version. E.g.: --files README.md some_package/__init__.py"
         )
 
     version = get_version_from_file(args.grab_version_from)

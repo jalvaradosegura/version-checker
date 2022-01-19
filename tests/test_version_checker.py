@@ -69,6 +69,11 @@ def test_cmd_no_files_provided(caplog):
         main(["--grab-version-from", DEFAULT_FILE_TO_GRAB_VERSION])
 
 
+def test_cmd_wrong_flag_for_files(caplog):
+    with pytest.raises(ValueError):
+        main(["--grab-version-from", DEFAULT_FILE_TO_GRAB_VERSION, "--files"])
+
+
 def test_cmd_2_files_provided_one_does_not_contain_the_version(
     tmp_file_path: Path,
 ):

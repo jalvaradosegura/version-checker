@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "version-checker"
-version = "0.3.0"
+version = "0.4.0"
 description = ""
 authors = ["Jorge Alvarado <alvaradosegurajorge@gmail.com>"]
 
@@ -29,3 +29,6 @@ profile = "black"
 
 [[tool.mypy.overrides]]
 module = "tests.*"
+
+[tool.coverage.run]
+omit = ["version_checker/__main__.py"]
