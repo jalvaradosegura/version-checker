@@ -1,8 +1,8 @@
-from importlib.metadata import version
 from pathlib import Path
 
 import pytest  # type: ignore
 
+from version_checker import __version__
 from version_checker.main import (
     check_files,
     get_version_from_file,
@@ -16,14 +16,14 @@ from .utils import write_something_to_file
 
 def test_version_in_file(tmp_file_path: Path):
     write_something_to_file(
-        tmp_file_path, f"version is in the file, {version('version-checker')}"
+        tmp_file_path, f"version is in the file, {__version__}"
     )
-    assert version_in_file(version("version-checker"), tmp_file_path)
+    assert version_in_file(__version__, tmp_file_path)
 
 
 def test_version_not_in_file(tmp_file_path: Path):
     write_something_to_file(tmp_file_path, "version not in the file")
-    assert not version_in_file(version("version-checker"), tmp_file_path)
+    assert not version_in_file(__version__, tmp_file_path)
 
 
 def test_cmd_version_not_in_file(tmp_file_path: Path, caplog):
@@ -43,7 +43,7 @@ def test_cmd_version_not_in_file(tmp_file_path: Path, caplog):
 
 def test_cmd_version_in_file(tmp_file_path: Path, caplog):
     write_something_to_file(
-        tmp_file_path, f"version is in the file, {version('version-checker')}"
+        tmp_file_path, f"version is in the file, {__version__}"
     )
     response = main(
         [
@@ -78,7 +78,7 @@ def test_cmd_2_files_provided_one_does_not_contain_the_version(
     tmp_file_path: Path,
 ):
     write_something_to_file(
-        tmp_file_path, f"I have the version: {version('version-checker')}"
+        tmp_file_path, f"I have the version: {__version__}"
     )
     another_file = tmp_file_path.parent / "another_file.txt"
     write_something_to_file(another_file, "I do not have the version")
@@ -100,12 +100,10 @@ def test_cmd_2_files_provided_both_contain_the_version(
     tmp_file_path: Path,
 ):
     write_something_to_file(
-        tmp_file_path, f"I have the version: {version('version-checker')}"
+        tmp_file_path, f"I have the version: {__version__}"
     )
     another_file = tmp_file_path.parent / "another_file.txt"
-    write_something_to_file(
-        another_file, f"I have it too: {version('version-checker')}"
-    )
+    write_something_to_file(another_file, f"I have it too: {__version__}")
 
     response = main(
         [
@@ -140,11 +138,9 @@ def test_get_version_from_file_with_no_version_defined(
 
 
 def test_check_files(tmp_file_path: Path, caplog):
-    write_something_to_file(
-        tmp_file_path, f"I have the version {version('version-checker')}"
-    )
+    write_something_to_file(tmp_file_path, f"I have the version {__version__}")
 
-    result = check_files([tmp_file_path], version("version-checker"))
+    result = check_files([tmp_file_path], __version__)
 
     assert result
     assert f"checking 1/1: {tmp_file_path}" in caplog.text

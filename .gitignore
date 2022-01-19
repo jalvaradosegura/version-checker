@@ -10,5 +10,8 @@ __pycache__/
 .coverage
 htmlcov
 
+# Tests
+.tox
+
 # macOS
 .DS_Store

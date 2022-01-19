@@ -1,0 +1,26 @@
+name: run-tox
+on: [push, pull_request]
+jobs:
+  tests:
+    name: Tox
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version:
+        - 3.7
+        - 3.8
+        - 3.9
+        - '3.10'
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Poetry
+        run: pip install poetry
+      - name: Install dependencies
+        run: poetry install
+      - name: Run tox
+        run: poetry run python -m tox --py current
