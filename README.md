@@ -1,4 +1,8 @@
 <p align="center">
+  <img src="https://raw.githubusercontent.com/jalvaradosegura/version-checker/master/docs/version-checker.png" alt="version-checker">
+</p>
+
+<p align="center">
   <a href="https://codecov.io/gh/jalvaradosegura/version-checker">
     <img src="https://codecov.io/gh/jalvaradosegura/version-checker/branch/main/graph/badge.svg?token=GJMYL11SWF"/>
   </a>
@@ -13,6 +17,10 @@
 
   <a href="https://github.com/jalvaradosegura/version-checker/actions/workflows/unit_tests.yml" target="_blank">
     <img src="https://github.com/jalvaradosegura/version-checker/actions/workflows/unit_tests.yml/badge.svg" alt="License">
+  </a>
+  
+  <a href="https://www.instagram.com/circus.infernus/" target="_blank">
+    <img src="https://img.shields.io/badge/image--by-%40circus.infernus-blue" alt="image-by">
   </a>
 
 </p>
