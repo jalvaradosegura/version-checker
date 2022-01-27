@@ -18,7 +18,7 @@
   <a href="https://github.com/jalvaradosegura/version-checker/actions/workflows/unit_tests.yml" target="_blank">
     <img src="https://github.com/jalvaradosegura/version-checker/actions/workflows/unit_tests.yml/badge.svg" alt="License">
   </a>
-  
+
   <a href="https://www.instagram.com/circus.infernus/" target="_blank">
     <img src="https://img.shields.io/badge/image--by-%40circus.infernus-blue" alt="image-by">
   </a>

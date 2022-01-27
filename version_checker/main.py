@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import argparse
 import typing
 from pathlib import Path
@@ -7,9 +9,7 @@ from loguru import logger  # type: ignore
 from .settings import DEFAULT_FILE_TO_GRAB_VERSION
 
 
-def check_files(
-    files_path: typing.List[typing.Union[str, Path]], version: str
-) -> bool:
+def check_files(files_path: list[str | Path], version: str) -> bool:
     files_status = []
     for index, file in enumerate(files_path):
         logger.info(f"checking {index + 1}/{len(files_path)}: {file}...")
@@ -23,7 +23,7 @@ def check_files(
     return all(files_status)
 
 
-def get_version_from_file(file_path: typing.Union[Path, str]) -> str:
+def get_version_from_file(file_path: Path | str) -> str:
     logger.info(f"trying to grab version from {file_path}...")
     with open(file_path, "r") as file:
         for line in file.readlines():
@@ -38,13 +38,13 @@ def get_version_from_file(file_path: typing.Union[Path, str]) -> str:
         )
 
 
-def version_in_file(version: str, file_path: typing.Union[str, Path]) -> bool:
+def version_in_file(version: str, file_path: str | Path) -> bool:
     with open(file_path, "r") as file:
         content = file.read()
     return version in content
 
 
-def main(argv: typing.Optional[typing.List[str]] = None) -> int:
+def main(argv: typing.Optional[list[str]] = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--grab-version-from",
