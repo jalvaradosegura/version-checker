@@ -1,0 +1,9 @@
+site_name: version-checker
+theme:
+  name: material
+  icon:
+    repo: fontawesome/brands/github-alt
+repo_url: https://github.com/jalvaradosegura/version-checker
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.superfences

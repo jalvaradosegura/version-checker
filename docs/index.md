@@ -1,37 +1,8 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/jalvaradosegura/version-checker/master/docs/version-checker.png" alt="version-checker">
-</p>
+# Welcome to version-checker
 
-<p align="center">
-  <a href="https://codecov.io/gh/jalvaradosegura/version-checker">
-    <img src="https://codecov.io/gh/jalvaradosegura/version-checker/branch/main/graph/badge.svg?token=GJMYL11SWF"/>
-  </a>
+🚧 Currently the documentation is the same as the main `README.md`, more details are on the making.
 
-  <a href="https://github.com/psf/black" target="_blank">
-    <img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="black">
-  </a>
-
-  <a href="https://pycqa.github.io/isort/" target="_blank">
-    <img src="https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336" alt="isort">
-  </a>
-
-  <a href="https://github.com/jalvaradosegura/version-checker/actions/workflows/unit_tests.yml" target="_blank">
-    <img src="https://github.com/jalvaradosegura/version-checker/actions/workflows/unit_tests.yml/badge.svg" alt="License">
-  </a>
-
-  <a href="https://www.instagram.com/circus.infernus/" target="_blank">
-    <img src="https://img.shields.io/badge/image--by-%40circus.infernus-blue" alt="image-by">
-  </a>
-
-</p>
-
----
-
-**Documentation**: https://jalvaradosegura.github.io/version-checker/
-
-**Tutorial from scratch**: https://dev.to/jalvaradosegura/dont-forget-to-update-that-value-in-those-files-3i78
-
----
+Here is a [tutorial](https://dev.to/jalvaradosegura/dont-forget-to-update-that-value-in-those-files-3i78) from scratch.
 
 ## Requirements
 

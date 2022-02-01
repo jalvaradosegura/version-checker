@@ -17,4 +17,4 @@ jobs:
       - name: isort check
         run: poetry run python -m isort . --check-only
       - name: black check
-        run: poetry run python -m black . -l 79 --check
+        run: poetry run python -m black . --check

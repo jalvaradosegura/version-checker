@@ -9,8 +9,6 @@ repos:
     rev: 21.12b0
     hooks:
     -   id: black
-        args:
-          - --line-length=79
 -   repo: https://github.com/pycqa/isort
     rev: 5.9.3
     hooks:
@@ -25,7 +23,7 @@ repos:
     rev: v0.2.0-alpha
     hooks:
     -   id: version-checker
-        args: [--files, README.md, version_checker/__init__.py]
+        args: [--files, README.md, version_checker/__init__.py, docs/index.md]
 -   repo: https://github.com/pre-commit/mirrors-mypy
     rev: v0.931
     hooks:

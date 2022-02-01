@@ -15,9 +15,7 @@ from .utils import write_something_to_file
 
 
 def test_version_in_file(tmp_file_path: Path):
-    write_something_to_file(
-        tmp_file_path, f"version is in the file, {__version__}"
-    )
+    write_something_to_file(tmp_file_path, f"version is in the file, {__version__}")
     assert version_in_file(__version__, tmp_file_path)
 
 
@@ -42,9 +40,7 @@ def test_cmd_version_not_in_file(tmp_file_path: Path, caplog):
 
 
 def test_cmd_version_in_file(tmp_file_path: Path, caplog):
-    write_something_to_file(
-        tmp_file_path, f"version is in the file, {__version__}"
-    )
+    write_something_to_file(tmp_file_path, f"version is in the file, {__version__}")
     response = main(
         [
             "--grab-version-from",
@@ -77,9 +73,7 @@ def test_cmd_wrong_flag_for_files(caplog):
 def test_cmd_2_files_provided_one_does_not_contain_the_version(
     tmp_file_path: Path,
 ):
-    write_something_to_file(
-        tmp_file_path, f"I have the version: {__version__}"
-    )
+    write_something_to_file(tmp_file_path, f"I have the version: {__version__}")
     another_file = tmp_file_path.parent / "another_file.txt"
     write_something_to_file(another_file, "I do not have the version")
 
@@ -99,9 +93,7 @@ def test_cmd_2_files_provided_one_does_not_contain_the_version(
 def test_cmd_2_files_provided_both_contain_the_version(
     tmp_file_path: Path,
 ):
-    write_something_to_file(
-        tmp_file_path, f"I have the version: {__version__}"
-    )
+    write_something_to_file(tmp_file_path, f"I have the version: {__version__}")
     another_file = tmp_file_path.parent / "another_file.txt"
     write_something_to_file(another_file, f"I have it too: {__version__}")
 
@@ -129,9 +121,7 @@ def test_get_version_from_file(tmp_file_path: Path, caplog):
     assert "version found: 0.1.0" in caplog.text
 
 
-def test_get_version_from_file_with_no_version_defined(
-    tmp_file_path: Path, caplog
-):
+def test_get_version_from_file_with_no_version_defined(tmp_file_path: Path, caplog):
     write_something_to_file(tmp_file_path, 'name = "version-checker"\n')
     with pytest.raises(ValueError):
         get_version_from_file(tmp_file_path)
