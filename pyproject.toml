@@ -23,6 +23,7 @@ mypy = "^0.931"
 tox = "^3.24.5"
 tox-py = "^1.2.0"
 mkdocs-material = "^8.1.8"
+typing-extensions = "^4.0.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

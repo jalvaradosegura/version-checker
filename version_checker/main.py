@@ -1,15 +1,21 @@
 from __future__ import annotations
 
 import argparse
-import typing
 from pathlib import Path
+from typing import Sequence
 
 from loguru import logger  # type: ignore
 
 from .settings import DEFAULT_FILE_TO_GRAB_VERSION
 
 
-def check_files(files_path: list[str | Path], version: str) -> bool:
+def version_in_file(version: str, file_path: str | Path) -> bool:
+    with open(file_path, "r") as file:
+        content = file.read()
+    return version in content
+
+
+def all_files_have_the_version(files_path: Sequence[str | Path], version: str) -> bool:
     files_status = []
     for index, file in enumerate(files_path):
         logger.info(f"checking {index + 1}/{len(files_path)}: {file}...")
@@ -38,13 +44,14 @@ def get_version_from_file(file_path: Path | str) -> str:
         )
 
 
-def version_in_file(version: str, file_path: str | Path) -> bool:
-    with open(file_path, "r") as file:
-        content = file.read()
-    return version in content
+def version_checker(grab_version_from: Path | str, files: Sequence[str | Path]) -> int:
+    version = get_version_from_file(grab_version_from)
+    if all_files_have_the_version(files, version):
+        return 0
+    return 1
 
 
-def main(argv: typing.Optional[list[str]] = None) -> int:
+def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--grab-version-from",
@@ -62,6 +69,8 @@ def main(argv: typing.Optional[list[str]] = None) -> int:
             "desired version. E.g.: --files README.md some_package/__init__.py"
         )
 
-    version = get_version_from_file(args.grab_version_from)
+    return version_checker(args.grab_version_from, args.files)
 
-    return 0 if check_files(args.files, version) else 1
+
+if __name__ == "__main__":  # pragma: no cover
+    raise SystemExit(main())
